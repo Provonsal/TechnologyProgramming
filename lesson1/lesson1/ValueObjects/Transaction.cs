@@ -29,5 +29,10 @@ namespace lesson1.ValueObjects
             Date = date;
             Note = note;
         }
+
+        public override string ToString()
+        {
+            return $"Date: {Date}\tAmount: {Amount}\tNote: {Note}";
+        }
     }
 }
