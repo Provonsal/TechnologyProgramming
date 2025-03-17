@@ -5,6 +5,9 @@ using guess_number.Game.MenuPackages.buttons;
 
 namespace guess_number.Game.Controllers
 {
+    /// <summary>
+    /// Abstract layer for interacting with console.
+    /// </summary>
     public class ConsoleController
     {
         public static string? ListenInput(){

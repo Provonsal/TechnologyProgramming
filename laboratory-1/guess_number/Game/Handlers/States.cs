@@ -1,5 +1,8 @@
 namespace guess_number.Game.Handlers
 {
+    /// <summary>
+    /// Enumeration for all existing states for binding buttons or other objects to actions.
+    /// </summary>
     public enum States
     {
         Mainmenu,
@@ -19,5 +22,6 @@ namespace guess_number.Game.Handlers
         ColorBlue,
         ColorMagenta,
         ResetColor,
+        EasterEgg
     }
 }

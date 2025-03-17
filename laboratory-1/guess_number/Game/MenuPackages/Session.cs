@@ -8,6 +8,9 @@ using guess_number.Game.MenuPackages.buttons;
 
 namespace guess_number.Game.MenuPackages
 {
+    /// <summary>
+    /// Enumeration for game difficulties.
+    /// </summary>
     public enum Difficulties
     {
         Easy,
@@ -15,6 +18,10 @@ namespace guess_number.Game.MenuPackages
         Hard
     }
 
+    /// <summary>
+    /// Class representeting of game session. Every new started game should be from a new game session. Otherwise the number will be the same every time.
+    /// Dont forget to recreate session.
+    /// </summary>
     public class Session
     {
         static public Difficulties difficulty = Difficulties.Medium;
@@ -22,6 +29,9 @@ namespace guess_number.Game.MenuPackages
         private int upBorder;
         private int downBorder;
 
+        /// <summary>
+        /// Dictionary for difficulties and their ranges.
+        /// </summary>
         public Dictionary<Difficulties, List<int>> BorderDatas = new() {
             {Difficulties.Easy, new(){0, 30}},
             {Difficulties.Medium, new(){0, 100}},
@@ -34,6 +44,10 @@ namespace guess_number.Game.MenuPackages
 
         public bool IsActive = false;
 
+        /// <summary>
+        /// Dictionary for menu buttons. 
+        /// The format is {`MenuName`: {`ButtonText`: `StateOfTheButton`}}. 
+        /// </summary>
         public readonly Dictionary<string, Dictionary<string, States>> TextCallbackPairs = new(){
             {
                 "AfterGameActions",
@@ -45,9 +59,16 @@ namespace guess_number.Game.MenuPackages
             }
         };
 
-        public Dictionary<string, ButtonsMenu> AllMenuButtonsList = new();
+        /// <summary>
+        /// Dictionary for auto generated buttons from the previuos dictionary with button texts and states.
+        /// The format is {`MenuName`: `ButtonsMenuObj`}.
+        /// </summary>
+        public Dictionary<string, ButtonsMenu> AllMenuButtonsDict = new();
 
-        void InitButtons()
+        /// <summary>
+        /// Method for generating buttons from `TextCallbackPairs` dict.
+        /// </summary>
+        private void InitButtons()
         {
             foreach (var item in TextCallbackPairs)
             {
@@ -58,13 +79,20 @@ namespace guess_number.Game.MenuPackages
                     tmp.Add(new Button(item2.Key, item2.Value));
                 }
 
-                AllMenuButtonsList[item.Key] = new ButtonsMenu(item.Key, tmp);
+                AllMenuButtonsDict[item.Key] = new ButtonsMenu(item.Key, tmp);
             }
         }
 
+        /// <summary>
+        /// Gains the difficulty and creating session and range based on the gained difficulty.
+        /// Have bad implementation. Need to be reworked.
+        /// </summary>
+        /// <param name="diff">One of 3 options: `States.EasyDiff`, `States.MediumDiff`, `States.HardDiff`.</param>
         public Session(States diff)
         {
 
+
+            // Bad way to translate one enum to another but other decisions will be more complex.
             switch (diff)
             {
                 case States.EasyDiff:
@@ -104,6 +132,10 @@ namespace guess_number.Game.MenuPackages
             IsActive = false;
         }
 
+        /// <summary>
+        /// Checking the number entered by user and deciding what to do: congrats the player or give a hint.
+        /// </summary>
+        /// <param name="number">Entered by player number.</param>
         public void ValidateNumber(int number)
         {
 
@@ -122,10 +154,13 @@ namespace guess_number.Game.MenuPackages
                 IsActive = false;
                 ConsoleController.Clear();
                 ConsoleController.PrintTextLine($"Congrats! You guessed the number!\nThe number was {SecretNumber}.\nYou have used {Tries} tries to guess.\n");
-                ConsoleController.DrawMenu(AllMenuButtonsList["AfterGameActions"].ButtonsList);
+                ConsoleController.DrawMenu(AllMenuButtonsDict["AfterGameActions"].ButtonsList);
             }
         }
 
+        /// <summary>
+        /// Method for drawing current game info in to console.
+        /// </summary>
         public void DrawGameInfo()
         {
 
@@ -134,6 +169,7 @@ namespace guess_number.Game.MenuPackages
             StringBuilder info = new();
             info.AppendLine($"Difficulty is {difficulty}.");
             info.AppendLine($"Try №{Tries}.");
+            info.AppendLine("Type exit() to exit the game.");
             ConsoleController.PrintTextLine(info.ToString());
         }
 

@@ -7,16 +7,35 @@ using guess_number.Game.MenuPackages;
 
 namespace guess_number.Game
 {
+    /// <summary>
+    /// Class for game engine.
+    /// </summary>
     public class Engine
     {
+        /// <summary>
+        /// Field representating the menus system.
+        /// </summary>
         public Menu Menu {get; set;}
 
+        /// <summary>
+        /// Field responsible for game session. Have own fields. Can ba active and unactive. 
+        /// </summary>
         public Session GameSession;
     
+        /// <summary>
+        /// Field mirroring the setted difficulty of the game.
+        /// </summary>
         public States GameDifficulty {get; set;} = States.MediumDiff;
 
+        /// <summary>
+        /// List containing States handlers objects
+        /// </summary>
         public List<StatesHandler> Handlers {get; set;} = new();
 
+        /// <summary>
+        /// Method for starting game engine. It will start listening loop.
+        /// </summary>
+        /// <exception cref="Exception">In case unknown exception. The exception will be translated further.</exception>
         public void Start(){
             ConsoleController.Clear();
             Menu.ShowCurrentMenu();
@@ -48,8 +67,22 @@ namespace guess_number.Game
         {
             string? input = ConsoleController.ListenInput();
 
+            
+
             if (!GameSession.IsActive)
             {
+                if (input == "love<3")
+                {
+                    HandleState(States.EasterEgg);
+                    return;
+                }
+
+                if (input == "menu()")
+                {
+                    HandleState(States.Mainmenu);
+                    return;
+                }
+
                 if (!int.TryParse(input, out int inputParsed))
                 {
                     throw new ParsingErrorException("Error parsing");
@@ -62,6 +95,7 @@ namespace guess_number.Game
                 if (input == "exit()")
                 {
                     HandleState(States.ExitGame);
+                    return;
                 }
                 else
                 {
@@ -116,6 +150,9 @@ namespace guess_number.Game
             }
         }
 
+        /// <summary>
+        /// Takes no arguments and creates game session and initializating menu.
+        /// </summary>
         public Engine(){
             GameSession = new(States.MediumDiff);
             Menu = new();

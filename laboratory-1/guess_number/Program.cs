@@ -12,14 +12,14 @@ namespace guess_number
 
         static void ASettingsDraw(Engine eng){
             eng.Menu.PreviousMenus.Push(eng.Menu.CurrentMenu);
-            eng.Menu.CurrentMenu = eng.Menu.AllMenuButtonsList["SettingsMenuButtons"];
+            eng.Menu.CurrentMenu = eng.Menu.AllMenuButtonsDict["SettingsMenuButtons"];
             ConsoleController.Clear();
             eng.Menu.ShowCurrentMenu();
         }
 
         static void AChoosingDiffDraw(Engine eng){
             eng.Menu.PreviousMenus.Push(eng.Menu.CurrentMenu);
-            eng.Menu.CurrentMenu = eng.Menu.AllMenuButtonsList["SettingDifficultyMenuButtons"];
+            eng.Menu.CurrentMenu = eng.Menu.AllMenuButtonsDict["SettingDifficultyMenuButtons"];
             ConsoleController.Clear();
             eng.Menu.ShowCurrentMenu();
         }
@@ -53,7 +53,7 @@ namespace guess_number
         static void AStartGame(Engine eng){
             eng.GameSession = new(eng.GameDifficulty);
             eng.Menu.PreviousMenus.Push(eng.Menu.CurrentMenu);
-            eng.Menu.CurrentMenu = eng.GameSession.AllMenuButtonsList["AfterGameActions"];
+            eng.Menu.CurrentMenu = eng.GameSession.AllMenuButtonsDict["AfterGameActions"];
             eng.GameSession.ResetTries();
             eng.GameSession.MakeActive();
             eng.GameSession.DrawGameInfo();
@@ -87,14 +87,22 @@ namespace guess_number
 
         static void AShowMainmenu(Engine eng){
             eng.GameSession.MakeUnactive();
-            eng.Menu.CurrentMenu = eng.Menu.AllMenuButtonsList["MainMenuButtons"];
+            eng.Menu.CurrentMenu = eng.Menu.AllMenuButtonsDict["MainMenuButtons"];
             ConsoleController.Clear();
             eng.Menu.ShowCurrentMenu();
         }
 
+        static void APrintEasterEgg(Engine eng)
+        {
+            ConsoleController.Clear();
+            ConsoleController.PrintTextLine("$$$_____$$$$$$$_$$$$$$$_$$$_______$$$_$$$$$$$$$$\n$$$____$$$____$$$____$$$_$$$_____$$$__$$$_______\n$$$____$$$_____$_____$$$_$$$_____$$$__$$$_______\n$$$_____$$$_________$$$___$$$___$$$___$$$$$$$$__\n$$$______$$$_______$$$_____$$$_$$$____$$$_______\n$$$_______$$$_____$$$______$$$_$$$____$$$_______\n$$$$$$$$$___$$$$$$$_________$$$$$_____$$$$$$$$$$");
+            ConsoleController.PrintTextLine("                Liza i love you");
+            ConsoleController.PrintTextLine("        (type \"menu()\" to come back)");
+        }
+
         static void AChangeBackColor(Engine eng){
             eng.Menu.PreviousMenus.Push(eng.Menu.CurrentMenu);
-            eng.Menu.CurrentMenu = eng.Menu.AllMenuButtonsList["SettingBackgroundColor"];
+            eng.Menu.CurrentMenu = eng.Menu.AllMenuButtonsDict["SettingBackgroundColor"];
             ConsoleController.Clear();
             eng.Menu.ShowCurrentMenu();
         }
@@ -148,7 +156,8 @@ namespace guess_number
                 {States.ColorGreen, ASetGreenColor},
                 {States.ColorBlue, ASetBlueColor},
                 {States.ResetColor, ASetdefaultColor},
-                {States.ColorMagenta, ASetMagentaColor}
+                {States.ColorMagenta, ASetMagentaColor},
+                {States.EasterEgg, APrintEasterEgg}
             });
             eng.Start(); 
         }
