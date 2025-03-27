@@ -159,7 +159,7 @@ namespace guess_number
                 {States.ColorMagenta, ASetMagentaColor},
                 {States.EasterEgg, APrintEasterEgg}
             });
-            eng.Start(); 
+            eng.Start(); // Приветь из гитхаба
         }
     }
 }
