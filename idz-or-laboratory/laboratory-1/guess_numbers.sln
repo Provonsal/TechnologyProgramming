@@ -5,6 +5,8 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "guess_number", "guess_number\guess_number.csproj", "{2DC27BBC-F478-4E15-BCFE-D9F6DF9A3F51}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "idz1", "..\idz1\idz1\idz1.csproj", "{B007F59D-8F6D-49F8-ABC4-C9F397B7DC97}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{2DC27BBC-F478-4E15-BCFE-D9F6DF9A3F51}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2DC27BBC-F478-4E15-BCFE-D9F6DF9A3F51}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2DC27BBC-F478-4E15-BCFE-D9F6DF9A3F51}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B007F59D-8F6D-49F8-ABC4-C9F397B7DC97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B007F59D-8F6D-49F8-ABC4-C9F397B7DC97}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B007F59D-8F6D-49F8-ABC4-C9F397B7DC97}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B007F59D-8F6D-49F8-ABC4-C9F397B7DC97}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
