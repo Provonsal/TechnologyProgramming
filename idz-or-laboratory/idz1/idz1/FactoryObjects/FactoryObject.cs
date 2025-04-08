@@ -11,9 +11,9 @@ namespace idz1.FactoryObjects
 
         public string? Description { get; set; }
 
-        public FactoryObject(string name, string desc)
+        public FactoryObject(string name, string desc, int? id = null)
         {
-            ID = null;
+            ID = id;
             Name = name;
             Description = desc;
         }

@@ -22,11 +22,11 @@ namespace idz1.Controllers
 
         public IUnit FindUnit(string tankName)
         {
-            for (int i = 0; i < _units.Length; i++)
+            for (int i = 0; i < _units.Count; i++)
             {
                 if (_tanks[i].Name == tankName)
                 {
-                    if (_tanks[i].UnitId <= _units.Length)
+                    if (_tanks[i].UnitId <= _units.Count)
                     {
                         return _units[_tanks[i].UnitId];
                     }
@@ -41,7 +41,7 @@ namespace idz1.Controllers
         }
     
         public IFactory FindFactory(IUnit unit){
-            for (int i = 0; i < _factories.Length; i++)
+            for (int i = 0; i < _factories.Count; i++)
             {
                 if (_factories[i].ID == unit.FactoryId)
                 {
@@ -55,7 +55,7 @@ namespace idz1.Controllers
             
             uint summ = 0;
 
-            for (int i = 0; i < _tanks.Length; i++)
+            for (int i = 0; i < _tanks.Count; i++)
             {
                 summ += _tanks[i].Volume;
             }

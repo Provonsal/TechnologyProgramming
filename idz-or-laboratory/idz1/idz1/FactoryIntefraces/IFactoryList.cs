@@ -1,16 +1,13 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using idz1.Properties;
 
 namespace idz1.FactoryIntefraces
 {
-    public interface IFactoryList
+    public interface IFactoryList: IJsonSerializable, IList<IFactory>
     {
-        public IFactory this[int index] { get; set; }
-
-        public int Length { get; }
-
-        public void Add(IFactory fact);
-
-        public bool Remove(IFactory fact);
+        
 
     }
 }

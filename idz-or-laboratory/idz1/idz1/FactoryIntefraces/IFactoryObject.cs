@@ -10,6 +10,5 @@ namespace idz1.FactoryIntefraces
 
         public string? Description { get; set; }
 
-        public string ToString();
     }
 }

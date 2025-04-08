@@ -1,13 +1,18 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using idz1.FactoryIntefraces;
+using idz1.FactoryObjects;
+using idz1.Properties;
+using Newtonsoft.Json;
 
 namespace idz1.Collections
 {
     public class TankList : ITankList
     {
-        private readonly List<ITank> _tanks;
+        private List<ITank> _tanks;
         private int _index;
 
         public TankList(int start_index = 0)
@@ -22,13 +27,15 @@ namespace idz1.Collections
             set => _tanks[index] = value;
         }
 
-        public int Length
+        public int Count
         {
             get
             {
                 return _index;
             }
         }
+
+        public bool IsReadOnly => ((ICollection<ITank>)_tanks).IsReadOnly;
 
         public void Add(ITank fact)
         {
@@ -66,6 +73,64 @@ namespace idz1.Collections
             sb.Append(']');
             
             return sb.ToString();
+        }
+
+        public void LoadFromJson(string jsonFilePath)
+        {
+
+            // Read the JSON file
+            Tank[]? readed_tanks = JsonConvert.DeserializeObject<Tank[]>(File.ReadAllText(jsonFilePath));
+
+            // Add the factories to the list
+            if (readed_tanks is not null)
+            {
+                _tanks = new(readed_tanks);
+
+            } else {
+                throw new System.Text.Json.JsonException("Json file is empty");
+            }
+        }
+
+        public string DumpToJson() => JsonConvert.SerializeObject(_tanks, Formatting.Indented);
+
+        public int IndexOf(ITank item)
+        {
+            return ((IList<ITank>)_tanks).IndexOf(item);
+        }
+
+        public void Insert(int index, ITank item)
+        {
+            ((IList<ITank>)_tanks).Insert(index, item);
+        }
+
+        public void RemoveAt(int index)
+        {
+            ((IList<ITank>)_tanks).RemoveAt(index);
+        }
+
+        public void Clear()
+        {
+            ((ICollection<ITank>)_tanks).Clear();
+        }
+
+        public bool Contains(ITank item)
+        {
+            return ((ICollection<ITank>)_tanks).Contains(item);
+        }
+
+        public void CopyTo(ITank[] array, int arrayIndex)
+        {
+            ((ICollection<ITank>)_tanks).CopyTo(array, arrayIndex);
+        }
+
+        public IEnumerator<ITank> GetEnumerator()
+        {
+            return ((IEnumerable<ITank>)_tanks).GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return ((IEnumerable)_tanks).GetEnumerator();
         }
     }
 

@@ -7,14 +7,10 @@ namespace idz1.FactoryObjects
     {
         public int FactoryId { get; set; }
 
-        public Unit(string name, string desc, int factId) : base(name, desc)
+        public Unit(string name, string description, int factId, int? id = null) 
+            : base(name, description, id)
         {
             FactoryId = factId;
-        }
-
-        public Unit(string name, string desc, int? factId) : base(name, desc)
-        {
-            FactoryId = factId ?? throw new ArgumentNullException(nameof(factId));
         }
 
         public override string ToString()

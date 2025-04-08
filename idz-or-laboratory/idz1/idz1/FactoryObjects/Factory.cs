@@ -5,7 +5,7 @@ namespace idz1.FactoryObjects
 {
     public class Factory : FactoryObject, IFactory
     {
-        public Factory(string name, string desc) : base(name, desc)
+        public Factory(string name, string description, int? id) : base(name, description, id)
         {
 
         }

@@ -1,13 +1,18 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using idz1.FactoryIntefraces;
+using idz1.FactoryObjects;
+using idz1.Properties;
+using Newtonsoft.Json;
 
 namespace idz1.Collections
 {
     public class UnitList : IUnitsList
     {
-        private readonly List<IUnit> _unitsList;
+        private List<IUnit> _unitsList;
         private int _index;
 
         public UnitList(int start_index = 0)
@@ -22,13 +27,15 @@ namespace idz1.Collections
             set => _unitsList[index] = value;
         }
 
-        public int Length
+        public int Count
         {
             get
             {
                 return _index;
             }
         }
+
+        public bool IsReadOnly => ((ICollection<IUnit>)_unitsList).IsReadOnly;
 
         public void Add(IUnit unit)
         {
@@ -66,6 +73,64 @@ namespace idz1.Collections
             sb.Append(']');
 
             return sb.ToString();
+        }
+
+        public void LoadFromJson(string jsonFilePath)
+        {
+
+            // Read the JSON file
+            Unit[]? readed_units = JsonConvert.DeserializeObject<Unit[]>(File.ReadAllText(jsonFilePath));
+
+            // Add the factories to the list
+            if (readed_units is not null)
+            {
+                _unitsList = new(readed_units);
+
+            } else {
+                throw new System.Text.Json.JsonException("Json file is empty");
+            }
+        }
+
+        public string DumpToJson() => JsonConvert.SerializeObject(_unitsList, Formatting.Indented);
+
+        public int IndexOf(IUnit item)
+        {
+            return ((IList<IUnit>)_unitsList).IndexOf(item);
+        }
+
+        public void Insert(int index, IUnit item)
+        {
+            ((IList<IUnit>)_unitsList).Insert(index, item);
+        }
+
+        public void RemoveAt(int index)
+        {
+            ((IList<IUnit>)_unitsList).RemoveAt(index);
+        }
+
+        public void Clear()
+        {
+            ((ICollection<IUnit>)_unitsList).Clear();
+        }
+
+        public bool Contains(IUnit item)
+        {
+            return ((ICollection<IUnit>)_unitsList).Contains(item);
+        }
+
+        public void CopyTo(IUnit[] array, int arrayIndex)
+        {
+            ((ICollection<IUnit>)_unitsList).CopyTo(array, arrayIndex);
+        }
+
+        public IEnumerator<IUnit> GetEnumerator()
+        {
+            return ((IEnumerable<IUnit>)_unitsList).GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return ((IEnumerable)_unitsList).GetEnumerator();
         }
     }
 }
