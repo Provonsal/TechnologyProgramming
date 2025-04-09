@@ -21,6 +21,10 @@ namespace idz1
             Console.WriteLine(UnitList.DumpToJson());
             Console.WriteLine(TankList.DumpToJson());
 
+            MenuController
+
+            Engine eng = new()
+
             // Factory fact1 = new("factory1", "Первый нефтеперерабатывающий завод");
             // Factory fact2 = new("factory2", "Второй нефтеперерабатывающий завод");
 

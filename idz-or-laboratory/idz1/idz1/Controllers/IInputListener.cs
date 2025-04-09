@@ -2,13 +2,13 @@ using System;
 
 namespace idz1.Controllers
 {
-    public interface IPrintController
+    public interface IInputListener
     {
-        public delegate void Out(string message);
+        public delegate string In();
 
-        public Out Handler { get; set; }
+        public In Handler { get; set; }
 
-        public event Out Print
+        public event In OutputHandler
         {
             add
             {
@@ -19,5 +19,6 @@ namespace idz1.Controllers
                 Handler -= value;
             }
         }
+
     }
 }
