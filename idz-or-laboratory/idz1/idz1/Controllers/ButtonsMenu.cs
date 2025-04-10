@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace idz1.Controllers
 {
@@ -47,6 +48,20 @@ namespace idz1.Controllers
         public IEnumerator<IList<IButton>> GetEnumerator()
         {
             return (IEnumerator<IList<IButton>>)Buttons.GetEnumerator();
+        }
+
+        public override string ToString()
+        {
+            StringBuilder sb = new();
+
+            int i = 0;
+            foreach (var item in Buttons)
+            {
+                sb.AppendLine($"{i++} {item.Text}.");
+            }
+
+            return sb.ToString();
+
         }
 
         public ButtonsMenu(string menuName, params KeyValuePair<string, string>[] buttons){

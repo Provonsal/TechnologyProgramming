@@ -12,5 +12,7 @@ namespace idz1.Controllers
         public IEnumerator<IList<IButton>> GetEnumerator();
 
         public IButton? FindButton(string? index);
+
+        public string ToString();
     }
 }

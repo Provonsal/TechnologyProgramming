@@ -29,7 +29,11 @@ namespace idz1
                 Output.Handler?.Invoke($"User pressed \"{pressed_button.Text}\"");
                 
                 Menu.Handlers.StartTheChainWave(pressed_button.State.StateText);
+            } else{
+                Output.Handler?.Invoke("Input unrecognized");
             }
         }
+
+        
     }
 }

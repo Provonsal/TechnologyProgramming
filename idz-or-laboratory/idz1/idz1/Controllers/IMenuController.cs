@@ -16,9 +16,9 @@ namespace idz1.Controllers
 
         public IHandlersController Handlers { get; set; }
 
-        public void LoadMenuButtons(Dictionary<string, Dictionary<string, string>> TextCallbackPairs);
+        public void AppendMenuButtons(IDictionary<string, IDictionary<string, string>> TextCallbackPairs);
 
-        public void ChangeMenu(string button_id);
+        public void ChangeMenu(string menuName);
 
         public void Back();
 
