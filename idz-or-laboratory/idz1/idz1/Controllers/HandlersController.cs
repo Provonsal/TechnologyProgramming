@@ -8,19 +8,29 @@ namespace idz1.Controllers
         public IList<IHandler> Handlers {get; set;}
 
         public void AttachHandler(IHandler newChainMember){
-            Handlers.Add(newChainMember);
+            
+            if (Handlers.Count == 0)
+            {
+                Handlers.Add(newChainMember);
+            } else {
+                Handlers[Handlers.Count-1].NextHandler = newChainMember;
+                Handlers.Add(newChainMember);
+            }
+
+
+
         }
 
-        public void StartTheChainWave(string state){
+        public void StartTheChainWave(string state, Engine eng){
             if (Handlers.Count > 0)
             {
-                Handlers[0].Catch(state);
+                Handlers[0].Catch(state, eng);
             }
         }
 
         public HandlersController(params KeyValuePair<string, Act>[] handlers){
             
-            Handlers = (IList<IHandler>) new List<Handler>();
+            Handlers = new List<IHandler>();
 
             for (int i = 0; i < handlers.Length; i++)
             {

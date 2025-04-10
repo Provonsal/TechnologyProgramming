@@ -19,7 +19,15 @@ namespace idz1
             Output.Handler?.Invoke("Engine has successfully created.");
         }
 
-        public void ListenInput(){
+        public void StartEngine(){
+            Menu.ShowCurrentMenu();
+            while (ListenInput())
+            {
+                
+            }
+        }
+
+        public bool ListenInput(){
             string? input = Input.Handler?.Invoke();
 
             IButton? pressed_button = Menu.CurrentMenu.FindButton(input);
@@ -28,12 +36,14 @@ namespace idz1
             {
                 Output.Handler?.Invoke($"User pressed \"{pressed_button.Text}\"");
                 
-                Menu.Handlers.StartTheChainWave(pressed_button.State.StateText);
+                Menu.Handlers.StartTheChainWave(pressed_button.State.StateText, this);
+                return true;
             } else{
                 Output.Handler?.Invoke("Input unrecognized");
+                return false;
             }
         }
 
-        
+
     }
 }

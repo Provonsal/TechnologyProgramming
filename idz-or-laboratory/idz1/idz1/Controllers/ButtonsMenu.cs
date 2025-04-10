@@ -68,11 +68,22 @@ namespace idz1.Controllers
             
             MenuName = menuName;
 
-            Buttons = (IList<IButton>) new List<Button>();
+            Buttons = new List<IButton>();
 
             for (int i = 0; i < buttons.Length; i++)
             {
                 Add(new Button(buttons[i].Key, buttons[i].Value));
+            }
+        }
+
+        public ButtonsMenu(string menuName, IDictionary<string, string> buttons){
+            MenuName = menuName;
+
+            Buttons = new List<IButton>();
+
+            foreach (var item in buttons)
+            {
+                Add(new Button(item.Key, item.Value));
             }
         }
     }

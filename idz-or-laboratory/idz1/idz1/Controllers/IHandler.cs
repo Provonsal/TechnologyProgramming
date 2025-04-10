@@ -2,7 +2,7 @@ using System;
 
 namespace idz1.Controllers
 {
-    public delegate void Act(string state);
+    public delegate void Act(Engine eng);
     
     public interface IHandler
     {
@@ -12,6 +12,6 @@ namespace idz1.Controllers
 
         public Act Handle {get;set;}
 
-        public void Catch(string state);
+        public void Catch(string state, Engine eng);
     }
 }

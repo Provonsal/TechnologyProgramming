@@ -10,6 +10,6 @@ namespace idz1.Controllers
 
         public void AttachHandler(IHandler newChainMember);
 
-        public void StartTheChainWave(string state);
+        public void StartTheChainWave(string state, Engine eng);
     }
 }

@@ -10,14 +10,14 @@ namespace idz1.Controllers
 
         public Act Handle { get; set; }
 
-        public void Catch(string state)
+        public void Catch(string state, Engine eng)
         {
             if (state == State)
             {
-                Handle(state);
+                Handle(eng);
             }
 
-            NextHandler?.Catch(state);
+            NextHandler?.Catch(state, eng);
 
         }
 

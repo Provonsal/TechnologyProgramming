@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using static idz1.Controllers.IPrintController;
 
@@ -20,11 +21,8 @@ namespace idz1.Controllers
         public void AppendMenuButtons(IDictionary<string, IDictionary<string, string>> TextCallbackPairs)
         {
             foreach (KeyValuePair<string, IDictionary<string, string>> menu in TextCallbackPairs)
-            {
-                foreach (KeyValuePair<string, string> button in menu.Value)
-                {
-                    AllMenus[menu.Key] = new ButtonsMenu(menu.Key, button);
-                }
+            {              
+                AllMenus[menu.Key] = new ButtonsMenu(menu.Key, menu.Value);
             }
         }
 

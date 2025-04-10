@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using idz1.Collections;
 using idz1.Controllers;
 using idz1.FactoryObjects;
@@ -21,7 +22,15 @@ namespace idz1
                 input = Console.ReadLine();
             }
 
-            return Console.ReadLine();
+            return input;
+        }
+
+        static void DoSmth(Engine eng){
+            Console.WriteLine("poop");
+        }
+
+        static void Terminate(Engine eng){
+            Environment.Exit(0);
         }
 
         static void Main(string[] args)
@@ -33,9 +42,19 @@ namespace idz1
             FactList.LoadFromJson("factories.json");
             UnitList.LoadFromJson("units.json");
             TankList.LoadFromJson("tanks.json");
-            Console.WriteLine(FactList.DumpToJson());
-            Console.WriteLine(UnitList.DumpToJson());
-            Console.WriteLine(TankList.DumpToJson());
+            // Console.WriteLine(FactList.DumpToJson());
+            // Console.WriteLine(UnitList.DumpToJson());
+            // Console.WriteLine(TankList.DumpToJson());
+
+            Dictionary<string, IDictionary<string, string>> menus = new(){
+                {"mainmenu", new Dictionary<string, string>(){
+                    {"button1", "state1"},
+                    {"exit", "exit"}
+                }}
+            };
+
+            KeyValuePair<string, Act> testHandler = new("state1", DoSmth);
+            KeyValuePair<string, Act> ExitHandler = new("exit", Terminate);
 
             In INhandler;
             INhandler = Input;
@@ -44,9 +63,14 @@ namespace idz1
 
             InputListener listener = new(INhandler);
             PrintController output = new(OUThandler);
-            MenuController menuContr = new();
 
-            Engine eng = new()
+            HandlersController handlers = new(testHandler, ExitHandler);
+
+            MenuController menuContr = new(menus, output, handlers, "mainmenu");
+
+            Engine eng = new(listener, output, menuContr);
+
+            eng.StartEngine();
 
             // Factory fact1 = new("factory1", "Первый нефтеперерабатывающий завод");
             // Factory fact2 = new("factory2", "Второй нефтеперерабатывающий завод");
