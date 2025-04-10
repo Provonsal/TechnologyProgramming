@@ -2,11 +2,12 @@ using System;
 
 namespace idz1.Controllers
 {
+    public delegate string In();
+
     public interface IInputListener
     {
-        public delegate string In();
 
-        public In Handler { get; set; }
+        public In? Handler { get; set; }
 
         public event In OutputHandler
         {
@@ -19,6 +20,5 @@ namespace idz1.Controllers
                 Handler -= value;
             }
         }
-
     }
 }

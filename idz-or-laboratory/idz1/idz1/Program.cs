@@ -8,6 +8,22 @@ namespace idz1
 
     class Program
     {
+
+        static void Print(string message){
+            Console.WriteLine(message);
+        }
+
+        static string Input(){
+            
+            string? input = Console.ReadLine();
+
+            while (input is null){
+                input = Console.ReadLine();
+            }
+
+            return Console.ReadLine();
+        }
+
         static void Main(string[] args)
         {
             FactoryList FactList = new();
@@ -21,7 +37,14 @@ namespace idz1
             Console.WriteLine(UnitList.DumpToJson());
             Console.WriteLine(TankList.DumpToJson());
 
-            InputListener
+            In INhandler;
+            INhandler = Input;
+            Out OUThandler;
+            OUThandler = Print;
+
+            InputListener listener = new(INhandler);
+            PrintController output = new(OUThandler);
+            MenuController menuContr = new();
 
             Engine eng = new()
 
