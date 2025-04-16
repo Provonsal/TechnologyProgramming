@@ -1,34 +1,36 @@
 using System;
 using System.Collections.Generic;
+using idz1.Collections;
 using idz1.FactoryIntefraces;
+using idz1.FactoryObjects;
 
 namespace idz1.Controllers
 {
-    public class CompanyController
+    public class CompanyController : ICompanyController
     {
 
-        private readonly IFactoryList _factories;
+        public  IFactoryList Factories { get; private set; }
 
-        private readonly IUnitsList _units;
+        public IUnitsList Units { get; private set; }
 
-        private readonly ITankList _tanks;
+        public ITankList Tanks { get; private set; }
 
         public CompanyController(IFactoryList factories, IUnitsList units, ITankList tanks)
         {
-            _factories = factories;
-            _units = units;
-            _tanks = tanks;
+            Factories = factories;
+            Units = units;
+            Tanks = tanks;
         }
 
         public IUnit FindUnit(string tankName)
         {
-            for (int i = 0; i < _units.Count; i++)
+            for (int i = 0; i < Units.Count; i++)
             {
-                if (_tanks[i].Name == tankName)
+                if (Tanks[i].Name == tankName)
                 {
-                    if (_tanks[i].UnitId <= _units.Count)
+                    if (Tanks[i].UnitId <= Units.Count)
                     {
-                        return _units[_tanks[i].UnitId];
+                        return Units[Tanks[i].UnitId];
                     }
                     else
                     {
@@ -36,30 +38,32 @@ namespace idz1.Controllers
                     }
                 }
             }
-            
+
             throw new KeyNotFoundException("Tank has not found.");
         }
-    
-        public IFactory FindFactory(IUnit unit){
-            for (int i = 0; i < _factories.Count; i++)
+
+        public IFactory FindFactory(int FactoryId)
+        {
+            for (int i = 0; i < Factories.Count; i++)
             {
-                if (_factories[i].ID == unit.FactoryId)
+                if (Factories[i].ID == FactoryId)
                 {
-                    return _factories[i];
+                    return Factories[i];
                 }
             }
-            throw new KeyNotFoundException(nameof(unit));
+            throw new KeyNotFoundException(nameof(FactoryId));
         }
 
-        public uint GetTotalTanksVolume(){
-            
+        public uint GetTotalTanksVolume()
+        {
+
             uint summ = 0;
 
-            for (int i = 0; i < _tanks.Count; i++)
+            for (int i = 0; i < Tanks.Count; i++)
             {
-                summ += _tanks[i].Volume;
+                summ += Tanks[i].Volume;
             }
-            
+
             return summ;
         }
 

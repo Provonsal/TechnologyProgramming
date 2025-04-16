@@ -16,9 +16,6 @@ namespace idz1.Controllers
                 Handlers[Handlers.Count-1].NextHandler = newChainMember;
                 Handlers.Add(newChainMember);
             }
-
-
-
         }
 
         public void StartTheChainWave(string state, Engine eng){

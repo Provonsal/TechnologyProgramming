@@ -53,7 +53,8 @@ namespace idz1.Controllers
 
         public void ShowCurrentMenu()
         {
-            Output.Handler(CurrentMenu.ToString());
+            Output.ClearHandler();
+            Output.PrintHandler(CurrentMenu.ToString());
         }
 
         public override string ToString()
@@ -85,7 +86,7 @@ namespace idz1.Controllers
                 }
                 else
                 {
-                    Output.Handler?.Invoke($"Menu with name {mainMenuName} not found");
+                    Output.PrintHandler?.Invoke($"Menu with name {mainMenuName} not found");
                     throw new Exception($"Menu with name {mainMenuName} not found");
                 }
             }

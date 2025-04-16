@@ -84,7 +84,10 @@ namespace idz1.Collections
             // Add the factories to the list
             if (readed_factories is not null)
             {
-                _factories = new(readed_factories);
+                foreach (var item in readed_factories)
+                {
+                    Add(item);
+                }
 
             } else {
                 throw new System.Text.Json.JsonException("Json file is empty");

@@ -3,7 +3,7 @@ using idz1.Controllers;
 
 namespace idz1
 {
-    public class Engine
+    public class Engine : IDisposable
     {
         public IMenuController Menu {get;set;}
 
@@ -11,19 +11,23 @@ namespace idz1
 
         public IPrintController Output {get;set;}
 
-        public Engine(IInputListener inputListener, IPrintController output, IMenuController menu){
+        public ICompanyController Company {get;set;}
+
+        public Engine(IInputListener inputListener, IPrintController output, IMenuController menu, ICompanyController company){
             Menu = menu;
             Input = inputListener;
             Output = output;
+            Company = company;
 
-            Output.Handler?.Invoke("Engine has successfully created.");
+            Output.Logger("Engine has successfully created.");
         }
 
         public void StartEngine(){
+            Output.ClearHandler();
             Menu.ShowCurrentMenu();
             while (ListenInput())
             {
-                
+                Menu.ShowCurrentMenu();
             }
         }
 
@@ -34,16 +38,20 @@ namespace idz1
 
             if (pressed_button is not null)
             {
-                Output.Handler?.Invoke($"User pressed \"{pressed_button.Text}\"");
+                Output.Logger($"User pressed \"{pressed_button.Text}\".");
                 
                 Menu.Handlers.StartTheChainWave(pressed_button.State.StateText, this);
                 return true;
             } else{
-                Output.Handler?.Invoke("Input unrecognized");
-                return false;
+                Output.Logger("Input unrecognized.");
+                return true;
             }
         }
 
-
+        public void Dispose()
+        {
+            Output.Dispose();
+            GC.SuppressFinalize(this);
+        }
     }
 }

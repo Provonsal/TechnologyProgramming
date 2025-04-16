@@ -3,21 +3,22 @@ using System;
 namespace idz1.Controllers
 {
     public delegate void Out(string message);
-    public interface IPrintController
+
+    public delegate void Clear();
+
+    public interface IPrintController : IDisposable
     {
 
-        public Out Handler { get; set; }
+        public Clear ClearHandler { get; set; }
 
-        public event Out Print
-        {
-            add
-            {
-                Handler += value;
-            }
-            remove
-            {
-                Handler -= value;
-            }
-        }
+        public Out PrintHandler { get; set; }
+
+        public string LogFilePath { get; set; }
+
+        public void Logger(string message);
+
+        public event Clear? ClearAll;
+
+        public event Out? Print;
     }
 }
